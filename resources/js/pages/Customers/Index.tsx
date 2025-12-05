@@ -34,10 +34,10 @@ import {
 import { DataTable } from '@/components/ui/data-table';
 import { columns } from './columns';
 import customer from '@/routes/customer';
-import { Customer, PageProps } from '@/types';
+import { Customer } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { Plus, Users } from 'lucide-react';
-import { FormEventHandler, useState, useEffect, useMemo } from 'react';
+import { FormEventHandler, useState, useEffect, useCallback, useMemo } from 'react';
 
 const breadcrumbs = [
     {
@@ -46,17 +46,17 @@ const breadcrumbs = [
     },
 ];
 
-interface IndexProps extends PageProps {
+interface IndexProps {
     customers: Customer[];
 }
 
-export default function Index({ auth, customers }: IndexProps) {
+export default function Index({ customers }: IndexProps) {
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
     const [deletingCustomer, setDeletingCustomer] = useState<Customer | null>(null);
 
     // Create Form
-    const { data: createData, setData: setCreateData, post: createPost, processing: createProcessing, errors: createErrors, reset: createReset, clearErrors: createClearErrors } = useForm({
+    const { data: createData, setData: setCreateData, post: createPost, processing: createProcessing, errors: createErrors, reset: createReset } = useForm({
         name: '',
         phone: '',
         email: '',
@@ -76,13 +76,17 @@ export default function Index({ auth, customers }: IndexProps) {
     };
 
     // Edit Form
-    const { data: editData, setData: setEditData, put: editPut, processing: editProcessing, errors: editErrors, reset: editReset, clearErrors: editClearErrors } = useForm({
+    const { data: editData, setData: setEditData, put: editPut, processing: editProcessing, errors: editErrors, reset: editReset, clearErrors: clearEditErrors } = useForm({
         name: '',
         phone: '',
         email: '',
         address: '',
         notes: '',
     });
+
+    const editClearErrors = useCallback(() => {
+        clearEditErrors();
+    }, [clearEditErrors]);
 
     useEffect(() => {
         if (editingCustomer) {
@@ -95,7 +99,7 @@ export default function Index({ auth, customers }: IndexProps) {
             });
             editClearErrors();
         }
-    }, [editingCustomer]);
+    }, [editingCustomer, editClearErrors]);
 
     const submitEdit: FormEventHandler = (e) => {
         e.preventDefault();

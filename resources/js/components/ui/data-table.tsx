@@ -21,7 +21,6 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableViewOptions } from './data-table-view-options';
@@ -30,7 +29,7 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
     searchKey?: string;
-    getRowId?: (originalRow: TData, index: number, parent?: any) => string;
+    getRowId?: (originalRow: TData, index: number, parent?: unknown) => string;
 }
 
 export function DataTable<TData, TValue>({

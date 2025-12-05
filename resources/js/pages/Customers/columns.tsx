@@ -17,10 +17,10 @@ export const columns = (
 ): ColumnDef<Customer>[] => [
     {
         id: 'drag',
-        header: ({ table }) => (
+        header: () => (
             <span className="sr-only">Drag handle</span>
         ),
-        cell: ({ row }) => (
+        cell: () => (
             <div className="flex items-center justify-center text-muted-foreground">
                 <GripVertical className="h-4 w-4" />
             </div>

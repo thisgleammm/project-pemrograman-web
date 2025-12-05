@@ -26,14 +26,15 @@ export function DataTablePagination<TData>({
     const [localPageSize, setLocalPageSize] = React.useState(`${table.getState().pagination.pageSize}`);
     const [localPageIndex, setLocalPageIndex] = React.useState(table.getState().pagination.pageIndex);
 
+    // Extract values for useEffect dependencies
+    const currentPageSize = table.getState().pagination.pageSize;
+    const currentPageIndex = table.getState().pagination.pageIndex;
+
     // Sync pagination with table state
     React.useEffect(() => {
-        const currentPageSize = table.getState().pagination.pageSize;
-        const currentPageIndex = table.getState().pagination.pageIndex;
-        
         setLocalPageSize(`${currentPageSize}`);
         setLocalPageIndex(currentPageIndex);
-    }, [table.getState().pagination.pageSize, table.getState().pagination.pageIndex]);
+    }, [currentPageSize, currentPageIndex]);
 
     const canPrevious = localPageIndex > 0;
     const canNext = localPageIndex < table.getPageCount() - 1;
