@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('sparepart_usages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone')->unique();
-            $table->string('email')->unique();
-            $table->string('address');
-            $table->string('notes')->nullable();
+            $table->foreignId('booking_id')->constrained('bookings');
+            $table->foreignId('sparepart_id')->constrained('spareparts');
+            $table->integer('qty');
+            $table->decimal('price_at_use', 10, 2)->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('sparepart_usages');
     }
 };
