@@ -17,7 +17,7 @@ class CustomerController extends Controller
     {
         $customers = Customer::orderBy('updated_at', 'desc')->get();
 
-        return Inertia::render('Customers/Index', [
+        return Inertia::render('customers/index', [
             'customers' => $customers,
         ]);
     }
@@ -30,7 +30,7 @@ class CustomerController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'email' => 'required|email|unique:customer,email',
+            'email' => 'required|email|unique:customers,email',
             'address' => 'required|string',
             'notes' => 'nullable|string',
         ]);
