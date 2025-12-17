@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { Customer } from '@/types';
+import { Vehicle } from '@/types';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -12,9 +12,9 @@ import {
 import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 
 export const columns = (
-    onEdit: (customer: Customer) => void,
-    onDelete: (customer: Customer) => void
-): ColumnDef<Customer>[] => [
+    onEdit: (vehicle: Vehicle) => void,
+    onDelete: (vehicle: Vehicle) => void
+): ColumnDef<Vehicle>[] => [
     {
         id: 'drag',
         header: () => (
@@ -24,7 +24,7 @@ export const columns = (
         enableHiding: false,
     },
     {
-        accessorKey: 'name',
+        accessorKey: 'plate_no',
         header: ({ column }) => {
             return (
                 <Button
@@ -32,43 +32,37 @@ export const columns = (
                     onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
                     className="-ml-4"
                 >
-                    Name
+                    Plate No
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             );
         },
-        cell: ({ row }) => <div className="font-medium">{row.getValue('name')}</div>,
+        cell: ({ row }) => <div className="font-medium">{row.getValue('plate_no')}</div>,
     },
     {
-        accessorKey: 'phone',
-        header: 'Phone',
-        cell: ({ row }) => <div className="text-muted-foreground">{row.getValue('phone')}</div>,
+        accessorKey: 'customer.name',
+        header: 'Owner',
+        cell: ({ row }) => <div className="text-muted-foreground">{row.original.customer?.name}</div>,
     },
     {
-        accessorKey: 'email',
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-                    className="-ml-4"
-                >
-                    Email
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-        cell: ({ row }) => <div className="text-muted-foreground">{row.getValue('email')}</div>,
+        accessorKey: 'brand',
+        header: 'Brand',
+        cell: ({ row }) => <div>{row.getValue('brand')}</div>,
     },
     {
-        accessorKey: 'address',
-        header: 'Address',
-        cell: ({ row }) => <div className="max-w-[300px] truncate text-muted-foreground" title={row.getValue('address')}>{row.getValue('address')}</div>,
+        accessorKey: 'model',
+        header: 'Model',
+        cell: ({ row }) => <div className="text-muted-foreground">{row.getValue('model')}</div>,
+    },
+    {
+        accessorKey: 'year',
+        header: 'Year',
+        cell: ({ row }) => <div className="text-muted-foreground">{row.getValue('year')}</div>,
     },
     {
         id: 'actions',
         cell: ({ row }) => {
-            const c = row.original;
+            const v = row.original;
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -79,20 +73,20 @@ export const columns = (
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(c.phone)}>
-                            Copy phone number
+                        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(v.plate_no)}>
+                            Copy Plate No
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => onEdit(c)}>
+                        <DropdownMenuItem onClick={() => onEdit(v)}>
                             <Pencil className="mr-2 h-4 w-4" />
-                            Edit customer
+                            Edit Vehicle
                         </DropdownMenuItem>
                         <DropdownMenuItem 
-                            onClick={() => onDelete(c)}
+                            onClick={() => onDelete(v)}
                             className="text-destructive focus:text-destructive"
                         >
                             <Trash2 className="mr-2 h-4 w-4" />
-                            Delete customer
+                            Delete Vehicle
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

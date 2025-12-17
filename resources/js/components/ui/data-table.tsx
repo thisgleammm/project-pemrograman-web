@@ -23,7 +23,6 @@ import {
 } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { DataTablePagination } from './data-table-pagination';
-import { DataTableViewOptions } from './data-table-view-options';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -82,7 +81,6 @@ export function DataTable<TData, TValue>({
                         className="h-8 w-[150px] lg:w-[250px]"
                     />
                 </div>
-                <DataTableViewOptions table={table} />
             </div>
             <div className="rounded-md border">
                 <Table>

@@ -53,6 +53,18 @@ export interface Customer {
     updated_at: string;
 }
 
+export interface Vehicle {
+    id: number;
+    customer_id: number;
+    brand: string;
+    model: string;
+    year: number;
+    plate_no: string;
+    customer: Customer;
+    created_at: string;
+    updated_at: string;
+}
+
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: Auth;
 };
