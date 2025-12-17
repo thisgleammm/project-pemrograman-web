@@ -1,5 +1,6 @@
-import { update } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
+import { route } from 'ziggy-js';
+import { Ziggy } from '@/ziggy';
 
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -22,7 +23,8 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
             <Head title="Reset password" />
 
             <Form
-                {...update.form()}
+                action={route('password.update', undefined, undefined, Ziggy)}
+                method="post"
                 transform={(data) => ({ ...data, token, email })}
                 resetOnSuccess={['password', 'password_confirmation']}
             >

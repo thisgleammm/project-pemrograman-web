@@ -33,16 +33,17 @@ import {
 } from '@/components/ui/empty';
 import { DataTable } from '@/components/ui/data-table';
 import { columns } from './columns';
-import customer from '@/routes/customer';
 import { Customer } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { Plus, Users } from 'lucide-react';
 import { FormEventHandler, useState, useEffect, useCallback, useMemo } from 'react';
+import { route } from 'ziggy-js';
+import { Ziggy } from '@/ziggy';
 
 const breadcrumbs = [
     {
         title: 'Customers',
-        href: customer.index().url,
+        href: route('customer.index', undefined, undefined, Ziggy),
     },
 ];
 
@@ -66,7 +67,7 @@ export default function Index({ customers }: IndexProps) {
 
     const submitCreate: FormEventHandler = (e) => {
         e.preventDefault();
-        createPost(customer.store().url, {
+        createPost(route('customer.store', undefined, undefined, Ziggy), {
             preserveScroll: true,
             onSuccess: () => {
                 setIsCreateOpen(false);
@@ -99,12 +100,12 @@ export default function Index({ customers }: IndexProps) {
             });
             editClearErrors();
         }
-    }, [editingCustomer, editClearErrors]);
+    }, [editingCustomer, setEditData, editClearErrors]);
 
     const submitEdit: FormEventHandler = (e) => {
         e.preventDefault();
         if (editingCustomer) {
-            editPut(customer.update({ customer: editingCustomer.id }).url, {
+            editPut(route('customer.update', editingCustomer.id, undefined, Ziggy), {
                 preserveScroll: true,
                 onSuccess: () => {
                     setEditingCustomer(null);
@@ -119,12 +120,13 @@ export default function Index({ customers }: IndexProps) {
 
     const confirmDelete = () => {
         if (deletingCustomer) {
-            destroy(customer.destroy({ customer: deletingCustomer.id }).url, {
+            destroy(route('customer.destroy', deletingCustomer.id, undefined, Ziggy), {
                 preserveScroll: true,
                 onSuccess: () => setDeletingCustomer(null),
             });
         }
     };
+
 
     const tableColumns = useMemo(() => columns(setEditingCustomer, setDeletingCustomer), []);
 

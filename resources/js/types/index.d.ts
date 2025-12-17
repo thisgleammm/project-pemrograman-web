@@ -20,6 +20,7 @@ export interface NavItem {
     href: NonNullable<InertiaLinkProps['href']>;
     icon?: LucideIcon | null;
     isActive?: boolean;
+    routeName?: string; // e.g. 'dashboard', 'users.*'
 }
 
 export interface SharedData {
@@ -61,6 +62,17 @@ export interface Vehicle {
     year: number;
     plate_no: string;
     customer: Customer;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Sparepart {
+    id: number;
+    sku: string;
+    name: string;
+    price: number;
+    stock: number;
+    min_stock: number;
     created_at: string;
     updated_at: string;
 }

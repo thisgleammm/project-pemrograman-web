@@ -1,5 +1,4 @@
-import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
-import { send } from '@/routes/verification';
+
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Transition } from '@headlessui/react';
 import { Form, Head, Link, usePage } from '@inertiajs/react';
@@ -12,12 +11,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
-import { edit } from '@/routes/profile';
+import { route } from 'ziggy-js';
+import { Ziggy } from '@/ziggy';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Profile settings',
-        href: edit().url,
+        href: route('profile.edit', undefined, undefined, Ziggy),
     },
 ];
 
@@ -42,7 +42,8 @@ export default function Profile({
                     />
 
                     <Form
-                        {...ProfileController.update.form()}
+                        action={route('profile.update', undefined, undefined, Ziggy)}
+                        method="patch"
                         options={{
                             preserveScroll: true,
                         }}
@@ -96,7 +97,8 @@ export default function Profile({
                                                 Your email address is
                                                 unverified.{' '}
                                                 <Link
-                                                    href={send()}
+                                                    href={route('verification.send', undefined, undefined, Ziggy)}
+                                                    method="post"
                                                     as="button"
                                                     className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                                 >

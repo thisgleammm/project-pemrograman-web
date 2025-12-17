@@ -31,7 +31,6 @@ import {
 } from '@/components/ui/empty';
 import { DataTable } from '@/components/ui/data-table';
 import { columns } from './columns';
-import vehicle from '@/routes/vehicle';
 import { Vehicle } from '@/types';
 import {
     Command,
@@ -52,11 +51,13 @@ import { Customer } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { Car, Plus } from 'lucide-react';
 import { FormEventHandler, useState, useEffect, useCallback, useMemo } from 'react';
+import { route } from 'ziggy-js';
+import { Ziggy } from '@/ziggy';
 
 const breadcrumbs = [
     {
         title: 'Vehicles',
-        href: vehicle.index().url,
+        href: route('vehicle.index', undefined, undefined, Ziggy),
     },
 ];
 
@@ -85,7 +86,7 @@ export default function Index({ vehicles, customers }: IndexProps) {
 
     const submitCreate: FormEventHandler = (e) => {
         e.preventDefault();
-        createPost(vehicle.store().url, {
+        createPost(route('vehicle.store', undefined, undefined, Ziggy), {
             preserveScroll: true,
             onSuccess: () => {
                 setIsCreateOpen(false);
@@ -118,12 +119,12 @@ export default function Index({ vehicles, customers }: IndexProps) {
             });
             editClearErrors();
         }
-    }, [editingVehicle, editClearErrors]);
+    }, [editingVehicle, editClearErrors, setEditData]);
 
     const submitEdit: FormEventHandler = (e) => {
         e.preventDefault();
         if (editingVehicle) {
-            editPut(vehicle.update({ vehicle: editingVehicle.id }).url, {
+            editPut(route('vehicle.update', editingVehicle.id, undefined, Ziggy), {
                 preserveScroll: true,
                 onSuccess: () => {
                     setEditingVehicle(null);
@@ -138,12 +139,13 @@ export default function Index({ vehicles, customers }: IndexProps) {
 
     const confirmDelete = () => {
         if (deletingVehicle) {
-            destroy(vehicle.destroy({ vehicle: deletingVehicle.id }).url, {
+            destroy(route('vehicle.destroy', deletingVehicle.id, undefined, Ziggy), {
                 preserveScroll: true,
                 onSuccess: () => setDeletingVehicle(null),
             });
         }
     };
+
 
     const tableColumns = useMemo(() => columns(setEditingVehicle, setDeletingVehicle), []);
 
