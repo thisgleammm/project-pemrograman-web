@@ -9,7 +9,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ArrowUpDown, GripVertical, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
+import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 
 export const columns = (
     onEdit: (customer: Customer) => void,
