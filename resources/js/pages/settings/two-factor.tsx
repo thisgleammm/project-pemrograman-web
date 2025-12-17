@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
-import { disable, enable, show } from '@/routes/two-factor';
+import { route } from 'ziggy-js';
+import { Ziggy } from '@/ziggy';
 import { type BreadcrumbItem } from '@/types';
 import { Form, Head } from '@inertiajs/react';
 import { ShieldBan, ShieldCheck } from 'lucide-react';
@@ -20,7 +21,7 @@ interface TwoFactorProps {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Two-Factor Authentication',
-        href: show.url(),
+        href: route('two-factor.show', undefined, undefined, Ziggy),
     },
 ];
 
@@ -66,7 +67,7 @@ export default function TwoFactor({
                             />
 
                             <div className="relative inline">
-                                <Form {...disable.form()}>
+                                <Form action={route('two-factor.disable', undefined, undefined, Ziggy)} method="delete">
                                     {({ processing }) => (
                                         <Button
                                             variant="destructive"
@@ -99,7 +100,7 @@ export default function TwoFactor({
                                     </Button>
                                 ) : (
                                     <Form
-                                        {...enable.form()}
+                                        action={route('two-factor.enable', undefined, undefined, Ziggy)} method="post"
                                         onSuccess={() =>
                                             setShowSetupModal(true)
                                         }

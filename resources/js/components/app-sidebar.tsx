@@ -10,53 +10,73 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
-import customer from '@/routes/customer';
-import vehicle from '@/routes/vehicle';
+import { Ziggy } from '@/ziggy';
+import { route } from 'ziggy-js';
+
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Users, Car } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Users, Car, Wrench } from 'lucide-react';
 import AppLogo from './app-logo';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Customers',
-        href: customer.index(),
-        icon: Users,
-    },
-    {
-        title: 'Vehicle',
-        href: vehicle.index(),
-        icon: Car,
-    },
-];
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
-
 export function AppSidebar() {
+    const dashboardItems: NavItem[] = [
+        {
+            title: 'Dashboard',
+            href: route('dashboard', undefined, undefined, Ziggy),
+            icon: LayoutGrid,
+            routeName: 'dashboard',
+        },
+    ];
+
+    const masterDataItems: NavItem[] = [
+        {
+            title: 'Customers',
+            href: route('customer.index', undefined, undefined, Ziggy),
+            icon: Users,
+            routeName: 'customer.*',
+        },
+        {
+            title: 'Vehicle',
+            href: route('vehicle.index', undefined, undefined, Ziggy),
+            icon: Car,
+            routeName: 'vehicle.*',
+        },
+        {
+            title: 'Sparepart',
+            href: route('sparepart.index', undefined, undefined, Ziggy),
+            icon: Wrench,
+            routeName: 'sparepart.*',
+        },
+    ];
+
+    const footerNavItems: NavItem[] = [
+        {
+            title: 'Repository',
+            href: 'https://github.com/laravel/react-starter-kit',
+            icon: Folder,
+        },
+        {
+            title: 'Documentation',
+            href: 'https://laravel.com/docs/starter-kits#react',
+            icon: BookOpen,
+        },
+    ];
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                            <Link
+                                href={route(
+                                    'dashboard',
+                                    undefined,
+                                    undefined,
+                                    Ziggy,
+                                )}
+                                prefetch
+                            >
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
@@ -65,7 +85,8 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={dashboardItems} />
+                <NavMain items={masterDataItems} label="Master Data" />
             </SidebarContent>
 
             <SidebarFooter>

@@ -8,8 +8,9 @@ import {
 } from '@/components/ui/input-otp';
 import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
 import AuthLayout from '@/layouts/auth-layout';
-import { store } from '@/routes/two-factor/login';
 import { Form, Head } from '@inertiajs/react';
+import { route } from 'ziggy-js';
+import { Ziggy } from '@/ziggy';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { useMemo, useState } from 'react';
 
@@ -54,7 +55,8 @@ export default function TwoFactorChallenge() {
 
             <div className="space-y-6">
                 <Form
-                    {...store.form()}
+                    action={route('two-factor.login.store', undefined, undefined, Ziggy)}
+                    method="post"
                     className="space-y-4"
                     resetOnError
                     resetOnSuccess={!showRecoveryInput}
