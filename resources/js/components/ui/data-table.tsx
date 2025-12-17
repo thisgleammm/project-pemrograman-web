@@ -28,6 +28,7 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
     searchKey?: string;
+    searchPlaceholder?: string;
     getRowId?: (originalRow: TData, index: number, parent?: unknown) => string;
 }
 
@@ -35,6 +36,7 @@ export function DataTable<TData, TValue>({
     columns,
     data,
     searchKey = 'email',
+    searchPlaceholder,
     getRowId,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -74,7 +76,7 @@ export function DataTable<TData, TValue>({
             <div className="flex items-center justify-between">
                 <div className="flex flex-1 items-center space-x-2">
                     <Input
-                        placeholder={`Filter ${searchKey}...`}
+                        placeholder={searchPlaceholder ?? `Filter ${searchKey}...`}
                         value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ''}
                         onChange={(event) =>
                             table.getColumn(searchKey)?.setFilterValue(event.target.value)

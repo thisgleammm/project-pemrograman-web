@@ -77,6 +77,21 @@ export interface Sparepart {
     updated_at: string;
 }
 
+export interface Booking {
+    id: number;
+    user_id: number;
+    vehicle_id: number;
+    mechanic_id?: number | null;
+    date: string;
+    complaint: string;
+    status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+    user?: User;
+    vehicle?: Vehicle;
+    mechanic?: User;
+    created_at: string;
+    updated_at: string;
+}
+
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: Auth;
 };

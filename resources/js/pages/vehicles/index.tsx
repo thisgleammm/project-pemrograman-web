@@ -283,7 +283,8 @@ export default function Index({ vehicles, customers }: IndexProps) {
                     <DataTable 
                         columns={tableColumns} 
                         data={vehicles} 
-                        searchKey="Plate No" 
+                        searchKey="plate_no" 
+                        searchPlaceholder="Filter plate number..."
                         getRowId={(row) => String(row.id)}
                     />
                 ) : (

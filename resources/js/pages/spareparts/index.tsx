@@ -227,6 +227,7 @@ export default function Index({ spareparts }: IndexProps) {
                         columns={tableColumns} 
                         data={spareparts} 
                         searchKey="name" 
+                        searchPlaceholder="Filter name..."
                         getRowId={(row) => String(row.id)}
                     />
                 ) : (

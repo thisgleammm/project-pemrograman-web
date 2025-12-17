@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Booking;
+use App\Models\Customer;
+use App\Models\Sparepart;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Vehicle;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,15 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::firstOrCreate(
-            ['email' => 'test@example.com'],
-            [
-                'name' => 'Test User',
-                'password' => 'password',
-                'email_verified_at' => now(),
-            ]
-        );
+        Customer::factory(25)->create();
+        Vehicle::factory(25)->create();
+        Sparepart::factory(25)->create();
+        Booking::factory(25)->create();
+        RoleSeeder::factory(25)->create();
     }
 }

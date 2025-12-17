@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('complaint');
             $table->enum('status', ['pending', 'in_progress', 'completed', 'cancelled'])->default('pending');
-            $table->foreignId('mechanic_id')->nullable()->constrained('users');
+            $table->foreignId('mechanic_id')->nullable();
             $table->timestamps();
         });
     }

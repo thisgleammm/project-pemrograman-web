@@ -223,6 +223,7 @@ export default function Index({ customers }: IndexProps) {
                         columns={tableColumns} 
                         data={customers} 
                         searchKey="name" 
+                        searchPlaceholder="Filter name..."
                         getRowId={(row) => String(row.id)}
                     />
                 ) : (

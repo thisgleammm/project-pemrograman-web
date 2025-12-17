@@ -15,7 +15,7 @@ import { route } from 'ziggy-js';
 
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Users, Car, Wrench } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Users, Car, Wrench, NotebookPen } from 'lucide-react';
 import AppLogo from './app-logo';
 
 export function AppSidebar() {
@@ -46,6 +46,12 @@ export function AppSidebar() {
             href: route('sparepart.index', undefined, undefined, Ziggy),
             icon: Wrench,
             routeName: 'sparepart.*',
+        },
+        {
+            title: 'Booking',
+            href: route('booking.index', undefined, undefined, Ziggy),
+            icon: NotebookPen,
+            routeName: 'booking.*',
         },
     ];
 

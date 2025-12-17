@@ -6,6 +6,8 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\SparepartController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -34,6 +36,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('sparepart', [SparepartController::class, 'store'])->name('sparepart.store');
     Route::put('sparepart/{sparepart}', [SparepartController::class, 'update'])->name('sparepart.update');
     Route::delete('sparepart/{sparepart}', [SparepartController::class, 'destroy'])->name('sparepart.destroy');
+
+    Route::get('booking', [BookingController::class, 'index'])->name('booking.index');
+    Route::post('booking', [BookingController::class, 'store'])->name('booking.store');
+    Route::put('booking/{booking}', [BookingController::class, 'update'])->name('booking.update');
+    Route::delete('booking/{booking}', [BookingController::class, 'destroy'])->name('booking.destroy');
 });
 
 require __DIR__.'/settings.php';
