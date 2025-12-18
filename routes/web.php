@@ -8,6 +8,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\SparepartUsageController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -38,9 +39,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('sparepart/{sparepart}', [SparepartController::class, 'destroy'])->name('sparepart.destroy');
 
     Route::get('booking', [BookingController::class, 'index'])->name('booking.index');
+    Route::get('booking/{booking}', [BookingController::class, 'show'])->name('booking.show');
     Route::post('booking', [BookingController::class, 'store'])->name('booking.store');
     Route::put('booking/{booking}', [BookingController::class, 'update'])->name('booking.update');
     Route::delete('booking/{booking}', [BookingController::class, 'destroy'])->name('booking.destroy');
+
+    Route::post('sparepart-usage', [SparepartUsageController::class, 'store'])->name('sparepart-usage.store');
+    Route::delete('sparepart-usage/{sparepartUsage}', [SparepartUsageController::class, 'destroy'])->name('sparepart-usage.destroy');
 });
 
 require __DIR__.'/settings.php';

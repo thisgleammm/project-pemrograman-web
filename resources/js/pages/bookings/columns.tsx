@@ -15,6 +15,9 @@ import {
     DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
 import { format } from 'date-fns';
+import { router } from '@inertiajs/react';
+import { route } from 'ziggy-js';
+import { Ziggy } from '@/ziggy';
 
 export const columns = (
     onEdit: (booking: Booking) => void,
@@ -126,6 +129,10 @@ export const columns = (
                             Copy complaint
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={() => router.visit(route('booking.show', booking.id, undefined, Ziggy))}>
+                            <Pencil className="mr-2 h-4 w-4" />
+                            View Details
+                        </DropdownMenuItem>
                         <DropdownMenuSub>
                             <DropdownMenuSubTrigger>
                                 Change Status

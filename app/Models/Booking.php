@@ -26,4 +26,9 @@ class Booking extends Model
     {
         return $this->belongsTo(Vehicle::class);
     }
+
+    public function sparepartUsages()
+    {
+        return $this->hasMany(SparepartUsages::class);
+    }
 }

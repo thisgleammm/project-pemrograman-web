@@ -15,4 +15,9 @@ class Sparepart extends Model
         'stock',
         'min_stock',
     ];
+
+    public function stockMutations()
+    {
+        return $this->hasMany(StockMutation::class);
+    }
 }

@@ -34,6 +34,27 @@ class BookingController extends Controller
     }
 
     /**
+     * Display the specified booking with sparepart usages.
+     */
+    public function show(Booking $booking)
+    {
+        $user = Auth::user();
+
+        // Authorization check: Only admin or owner can view
+        if (!$user->hasRole('admin') && $booking->user_id !== $user->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $booking->load(['user', 'vehicle', 'sparepartUsages.sparepart']);
+        $spareparts = \App\Models\Sparepart::orderBy('name', 'asc')->get();
+
+        return Inertia::render('bookings/show', [
+            'booking' => $booking,
+            'spareparts' => $spareparts,
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)

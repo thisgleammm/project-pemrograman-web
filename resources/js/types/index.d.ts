@@ -88,6 +88,18 @@ export interface Booking {
     user?: User;
     vehicle?: Vehicle;
     mechanic?: User;
+    sparepart_usages?: SparepartUsage[];
+    created_at: string;
+    updated_at: string;
+}
+
+export interface SparepartUsage {
+    id: number;
+    booking_id: number;
+    sparepart_id: number;
+    qty: number;
+    price_at_use: number;
+    sparepart?: Sparepart;
     created_at: string;
     updated_at: string;
 }
